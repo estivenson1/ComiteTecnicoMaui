@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace ComiteTecnicoMaui.App
+namespace ComiteTecnicoMaui.App.Platforms.iOS
 {
     public class Program
     {

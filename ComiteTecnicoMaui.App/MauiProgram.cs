@@ -1,4 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ComiteTecnicoMaui.App._1.Proxy.ServiceClients;
+using ComiteTecnicoMaui.App._1Crosscuttings.ComiteTecnicoMaui.Contracts.FrontEnd;
+using ComiteTecnicoMaui.App._1Crosscuttings.ComiteTecnicoMaui.Contracts.ServiceClients;
+using ComiteTecnicoMaui.App.Models;
+using ComiteTecnicoMaui.App.ViewModels;
+using ComiteTecnicoMaui.App.Views;
+using Microsoft.Extensions.Logging;
 
 namespace ComiteTecnicoMaui.App
 {
@@ -15,11 +21,44 @@ namespace ComiteTecnicoMaui.App
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder
+                .RegisterProxies()
+                .RegisterModels()
+                .RegisterViewsAndViewModels();
+
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
+        }
+
+        public static MauiAppBuilder RegisterProxies(this MauiAppBuilder mauiAppBuilder)
+        {           
+            mauiAppBuilder.Services.AddTransient<ICountryServiceClient, CountryServiceClient>();
+
+            return mauiAppBuilder;
+        }
+
+        public static MauiAppBuilder RegisterModels(this MauiAppBuilder mauiAppBuilder)
+        {
+            mauiAppBuilder.Services.AddSingleton<ICountryModel, CountryModel>();
+
+            return mauiAppBuilder;
+        }
+
+        public static MauiAppBuilder RegisterViewsAndViewModels(this MauiAppBuilder mauiAppBuilder)
+        {
+            mauiAppBuilder.Services.AddSingleton<CountriesView>(); 
+            mauiAppBuilder.Services.AddSingleton<CountriesViewModel>(); 
+
+            //mauiAppBuilder.Services.AddTransientWithShellRoute<SelectOptionIdimeView, SelectOptionIdimeViewModel>(nameof(SelectOptionIdimeView));  
+
+            //PopUp 
+            //mauiAppBuilder.Services.AddTransientPopup<PopUpGeneralView, PopUpGeneralViewModel>();
+
+            return mauiAppBuilder;
         }
     }
 }
