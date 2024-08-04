@@ -5,29 +5,24 @@ using System.Collections.ObjectModel;
 
 namespace ComiteTecnicoMaui.App.ViewModels;
 
-public partial class CountriesViewModel : ObservableObject
+public partial class CountriesViewModel : ViewModelBase
 {
     readonly ICountryModel _countryModel;
 
     [ObservableProperty] ObservableCollection<Country> countryList;
 
-    private bool _isBusy;
-    public bool IsBusy
-    {
-        get => _isBusy;
-        set => SetProperty(ref _isBusy, value);
-    }
-
     public CountriesViewModel(ICountryModel countryModel)
     {
         _countryModel = countryModel;
     }
-    public async Task GetCountriesAsync()
+
+    public override async Task InitializeAsync()
     {
-        IsBusy=true;
+        IsBusy = true;
         var resoonse = await _countryModel.GetCountriesAsync();
         CountryList = new ObservableCollection<Country>(resoonse);
-        IsBusy=false;   
+        IsBusy = false;
     }
+
 }
 

@@ -2,6 +2,7 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:local="clr-namespace:ComiteTecnicoMaui.App"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Style TargetType="ActivityIndicator">
@@ -422,5 +423,59 @@
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
+
+    <!--#region **************************** Template app Inicio ****************************-->
+    <!--Loading App-->
+    <ControlTemplate x:Key="LoadingControlApp">
+        <Grid IsVisible="{Binding IsBusy}" BackgroundColor="Transparent">
+            <Grid BackgroundColor="Black" Opacity="0.4"/>
+            <Frame BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Frame BackgroundColor="Transparent"
+                        CornerRadius="4"       
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center">
+                    <Grid RowDefinitions="50,30">
+                        <ActivityIndicator IsRunning="True" Grid.Row="0"/>
+                        <Label Grid.Row="1"
+                            Text="Cargando..."
+                            TextColor="White"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"/>
+                    </Grid>
+                </Frame>
+            </Frame>
+        </Grid>
+    </ControlTemplate>
+
+    <!--ControlTemplate AbsoluteLayout-->
+    <ControlTemplate x:Key="TemplateApp">
+        <AbsoluteLayout>
+            <!--Contenido-->
+            <ContentPresenter AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
+            <!--Loading-->
+            <ContentView ControlTemplate="{StaticResource LoadingControlApp}" BindingContext="{local:App}"
+                 AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
+        </AbsoluteLayout>
+    </ControlTemplate>
+
+    <!--ControlTemplate Grid-->
+    <ControlTemplate x:Key="TemplateAppGrid">
+        <Grid RowDefinitions="Auto,*, 0.05*">
+            <!--Header-->
+            <ContentView Grid.Row="0" Margin="5,0">
+                <Label Text="Title Header" FontSize="Title" FontAttributes="Bold"/>
+            </ContentView>
+            <!--Contenido-->
+            <ContentPresenter Grid.Row="1" Margin="5,0" />
+            <!--Footer-->
+            <ContentView Grid.Row="2" BackgroundColor="Gray">
+                <Label Text="Title Footer" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold"/>
+            </ContentView>
+            <!--Loading-->
+            <ContentView ControlTemplate="{StaticResource LoadingControlApp}" BindingContext="{local:App}"
+                        Grid.Row="0" Grid.RowSpan="3" IsVisible="{Binding IsBusy}"/>
+        </Grid>
+    </ControlTemplate>
+    <!--#endregion **************************** Fin ****************************-->
 
 </ResourceDictionary>
