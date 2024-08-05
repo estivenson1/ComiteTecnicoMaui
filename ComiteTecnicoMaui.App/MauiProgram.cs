@@ -1,10 +1,24 @@
-﻿using ComiteTecnicoMaui.App._1.Proxy.ServiceClients;
+﻿using ComiteTecnicoMaui.App.Customs;
+
+
+using ComiteTecnicoMaui.App._1.Proxy.ServiceClients;
 using ComiteTecnicoMaui.App._1Crosscuttings.ComiteTecnicoMaui.Contracts.FrontEnd;
 using ComiteTecnicoMaui.App._1Crosscuttings.ComiteTecnicoMaui.Contracts.ServiceClients;
 using ComiteTecnicoMaui.App.Models;
 using ComiteTecnicoMaui.App.ViewModels;
+using ComiteTecnicoMaui.App.ViewModels.PopUps;
 using ComiteTecnicoMaui.App.Views;
+using ComiteTecnicoMaui.App.Views.PopUps;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Handlers;
+
+
+//#if ANDROID
+//using ComiteTecnicoMaui.App.Platforms.Android.Handlers;
+//#endif
+
+
 
 namespace ComiteTecnicoMaui.App
 {
@@ -15,6 +29,7 @@ namespace ComiteTecnicoMaui.App
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -24,7 +39,13 @@ namespace ComiteTecnicoMaui.App
             builder
                 .RegisterProxies()
                 .RegisterModels()
-                .RegisterViewsAndViewModels();
+                .RegisterViewsAndViewModels()
+                .ConfigureMauiHandlers(handlers =>
+                {
+#if __ANDROID__
+                    handlers.AddHandler(typeof(CustomPicker), typeof(CustomPickerHandler));
+#endif
+                });
 
 
 #if DEBUG
@@ -56,7 +77,7 @@ namespace ComiteTecnicoMaui.App
             //mauiAppBuilder.Services.AddTransientWithShellRoute<SelectOptionIdimeView, SelectOptionIdimeViewModel>(nameof(SelectOptionIdimeView));  
 
             //PopUp 
-            //mauiAppBuilder.Services.AddTransientPopup<PopUpGeneralView, PopUpGeneralViewModel>();
+            mauiAppBuilder.Services.AddTransientPopup<GeneralPopUpView, GeneralPopUpViewModel>();
 
             return mauiAppBuilder;
         }

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:ComiteTecnicoMaui.App.Customs"
              x:Class="ComiteTecnicoMaui.App.MainPage">
 
     <ScrollView>
@@ -30,6 +31,62 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
+
+            <!--
+            ItemDisplayBinding="{Binding CompleteShortName}"
+            ItemsSource="{Binding Beneficiaries}"
+            SelectedItem="{Binding SelectedBeneficiary, Mode=TwoWay}"
+            -->
+
+            <custom:CustomPicker x:Name="pckBeneficiary"
+                    Title="Seleccione Beneficiario"
+                    AutomationId="pckBeneficiary"
+                    FontAttributes="Bold"
+                    FontSize="{OnIdiom Tablet={OnPlatform iOS=25, Android=20}, Phone=13}"
+                    HeightRequest="{OnIdiom Phone={OnPlatform iOS=25, Android=25}, Tablet={OnPlatform iOS=30, Android=30}}"
+                    Image="dotnet_bot"
+              
+                    BackgroundColor="#fbf0e9"
+                    TextColor="#FF6601"
+                    TitleColor="#FF6601"
+                    CornerRadius="13"
+                    ButtonNegativeColor="#FF6601"
+                    ButtonPositiveColor="#FF6601">
+                <custom:CustomPicker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Baboon</x:String>
+                        <x:String>Capuchin Monkey</x:String>
+                        <x:String>Blue Monkey</x:String>
+                        <x:String>Squirrel Monkey</x:String>
+                        <x:String>Golden Lion Tamarin</x:String>
+                        <x:String>Howler Monkey</x:String>
+                        <x:String>Japanese Macaque</x:String>
+                    </x:Array>
+                </custom:CustomPicker.ItemsSource>
+            </custom:CustomPicker>
+
+
+            <Picker x:Name="picker"
+                Title="Select a monkey">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Baboon</x:String>
+                        <x:String>Capuchin Monkey</x:String>
+                        <x:String>Blue Monkey</x:String>
+                        <x:String>Squirrel Monkey</x:String>
+                        <x:String>Golden Lion Tamarin</x:String>
+                        <x:String>Howler Monkey</x:String>
+                        <x:String>Japanese Macaque</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+
+            <Button
+                Text=" PopUp Click me"             
+                Clicked="OnPopUpClicked"
+                HorizontalOptions="Fill" />
+
         </VerticalStackLayout>
     </ScrollView>
 

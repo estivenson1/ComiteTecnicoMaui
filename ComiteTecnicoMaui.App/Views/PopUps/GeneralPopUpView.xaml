@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ComiteTecnicoMaui.App.Views.PopUps.GeneralPopUpView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <VerticalStackLayout>
+
+        <Button Text="Habilitar MyEditor" Clicked="HabilitarMyEditor_Clicked"/>
+        <Editor x:Name="MyEditor" IsEnabled="False" BackgroundColor="Gray">
+            
+        </Editor>
+        <Button Text="Ocultar Teclado" Clicked="HideKeyBoard_Clicked"/>
+    </VerticalStackLayout>
+</toolkit:Popup>

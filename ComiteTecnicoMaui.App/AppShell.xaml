@@ -8,14 +8,14 @@
     Shell.FlyoutBehavior="Disabled"
     Title="ComiteTecnicoMaui.App">
 
-    <!--<ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />-->
-
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate localViews:CountriesView}"
+        ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+    <!--<ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate localViews:CountriesView}"
+        Route="MainPage" />-->
 
 </Shell>
